@@ -1,4 +1,5 @@
-import { Heart } from "lucide-react"
+import { Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -22,16 +23,22 @@ function Navbar() {
           </a>
         </nav>
         <div className="flex items-center space-x-3">
-          <button className="px-4 py-2 border border-blue-200 text-blue-600 bg-white hover:bg-blue-50 rounded-md">
+          <Link
+            to="/login"
+            className="px-4 py-2 border border-blue-200 text-blue-600 bg-white hover:bg-blue-50 rounded-md"
+          >
             Sign In
-          </button>
-          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
+          </Link>
+          <Link
+            to="/register"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 export default Navbar;

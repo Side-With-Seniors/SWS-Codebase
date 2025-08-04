@@ -1,13 +1,12 @@
 import React, { useState } from "react"
 import { Heart } from "lucide-react"
 
-function SignIn() {
+function Signin() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Add authentication logic here if needed
     alert(`Email: ${email}\nPassword: ${password}`)
   }
 
@@ -81,4 +80,4 @@ function SignIn() {
   )
 }
 
-export default SignIn;
+export default Signin;
