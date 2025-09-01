@@ -5,10 +5,28 @@ import { Link } from "react-router-dom";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Registered with:\nEmail: ${email}\nPassword: ${password}`);
+    setMessage("Registering...");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setMessage("Registration successful!");
+      } else {
+        setMessage(data.error || "Server error");
+      }
+    } catch {
+      setMessage("Network error, try again.");
+    }
   };
 
   return (
@@ -20,19 +38,18 @@ function Signup() {
               <div className="w-10 h-10 bg-[#FFF2F2] rounded-lg flex items-center justify-center">
                 <Heart className="w-6 h-6 text-[#7286D3]" />
               </div>
-              <span className="ml-3 text-2xl font-bold text-white">Genova</span>
+              <span className="ml-3 text-2xl font-bold text-white">Side With Seniors</span>
             </div>
             <h2 className="text-3xl font-bold text-white mb-4">Join Us!</h2>
             <p className="text-white text-lg">
-              Create an account to get started with Genova and explore opportunities.
+              Create an account to get started with Side With Seniors and explore opportunities.
             </p>
           </div>
           <div className="mt-12 text-white text-sm opacity-70">
-            &copy; {new Date().getFullYear()} Genova. All rights reserved.
+            &copy; {new Date().getFullYear()} Side With Seniors. All rights reserved.
           </div>
         </div>
 
-        {/* Right Side */}
         <div className="w-1/2 p-12 flex flex-col justify-center bg-[#FFF2F2]">
           <h2 className="text-2xl font-bold mb-6 text-center text-[#7286D3]">Register</h2>
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -81,6 +98,7 @@ function Signup() {
               </Link>
             </div>
           </form>
+          {message && <p className="mt-4 text-center text-sm text-[#7286D3]">{message}</p>}
         </div>
       </div>
     </div>

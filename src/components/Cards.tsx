@@ -1,6 +1,17 @@
 import { Heart, Users, MapPin } from "lucide-react"
+import { motion } from "framer-motion"
+import { useRef } from "react"
+import { useInView } from "framer-motion"
 
 function Cards() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } }, // slower
+  }
+
   const cards = [
     {
       icon: <Users className="w-8 h-8 text-blue-600" />,
@@ -20,18 +31,28 @@ function Cards() {
   ]
 
   return (
-    <section id="how-it-works" className="py-20 bg-blue-50">
+    <section id="how-it-works" className="py-20 bg-blue-50" ref={ref}>
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">How Genova Works</h2>
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={fadeUp}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">How Side With Seniors Works</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Simple steps to start making a difference in your community
           </p>
-        </div>
+        </motion.div>
+
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {cards.map((card, i) => (
-            <div
+            <motion.div
               key={i}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              variants={fadeUp}
+              transition={{ delay: 0.4 * i, duration: 1 }} // stagger slower
               className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow text-center"
             >
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -39,7 +60,7 @@ function Cards() {
               </div>
               <h3 className="text-xl text-gray-900 mb-2">{card.title}</h3>
               <p className="text-gray-600 text-base">{card.text}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -47,4 +68,4 @@ function Cards() {
   )
 }
 
-export default Cards;
+export default Cards
