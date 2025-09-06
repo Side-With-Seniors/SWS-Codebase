@@ -22,7 +22,7 @@ function DashboardContent() {
   const [emailInput, setEmailInput] = useState("")
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/opportunities")
+    fetch("https://squishypixelz.pythonanywhere.com/api/opportunities")
       .then(res => res.json())
       .then(data => setOpportunities(data.opportunities || []))
       .catch(err => console.error(err))
@@ -30,7 +30,7 @@ function DashboardContent() {
 
   const handleSignup = async (id: string, email: string) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/opportunities/${id}/signup`, {
+      const response = await fetch(`https://squishypixelz.pythonanywhere.com/api/opportunities/${id}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
@@ -58,8 +58,8 @@ function DashboardContent() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {opportunities.map(op => (
-            <motion.div 
-              key={op._id} 
+            <motion.div
+              key={op._id}
               whileHover={{ scale: 1.03 }}
               className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 cursor-pointer hover:shadow-xl transition min-h-[250px]"
               onClick={() => setSelectedOpportunity(op)}
@@ -75,18 +75,18 @@ function DashboardContent() {
         <AnimatePresence>
           {selectedOpportunity && (
             <>
-              <motion.div 
+              <motion.div
                 className="fixed inset-0 backdrop-blur-sm z-40"
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }} 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={() => setSelectedOpportunity(null)} 
+                onClick={() => setSelectedOpportunity(null)}
               />
-              <motion.div 
+              <motion.div
                 className="fixed inset-0 flex items-center justify-center z-50"
-                initial={{ opacity: 0, scale: 0.8 }} 
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }} 
+                exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="bg-white w-full max-w-lg p-8 rounded-3xl shadow-2xl">
@@ -99,7 +99,7 @@ function DashboardContent() {
 
                   <div className="mb-4">
                     <label className="block text-gray-700 font-semibold mb-1">Your Email:</label>
-                    <input 
+                    <input
                       type="email"
                       className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                       value={emailInput}
@@ -118,13 +118,13 @@ function DashboardContent() {
                   )}
 
                   <div className="flex justify-end space-x-3 mt-4">
-                    <button 
+                    <button
                       onClick={() => setSelectedOpportunity(null)}
                       className="px-5 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 transition"
                     >
                       Close
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleSignup(selectedOpportunity._id, emailInput)}
                       className="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
                     >

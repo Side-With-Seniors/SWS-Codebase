@@ -20,7 +20,7 @@ function AdminDashboardContent() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/opportunities", {
+      const response = await fetch("https://squishypixelz.pythonanywhere.com/api/opportunities", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, description, category, location, time, slots })
@@ -45,7 +45,7 @@ function AdminDashboardContent() {
 
   const handleViewSignups = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/opportunities")
+      const response = await fetch("https://squishypixelz.pythonanywhere.com/api/opportunities")
       const data = await response.json()
       if (data.success) {
         setOpportunitiesList(data.opportunities)
@@ -145,7 +145,7 @@ function AdminDashboardContent() {
                         <p className="text-gray-600 mb-1">Time: {op.time}</p>
                         <p className="text-gray-600 font-semibold">Participants:</p>
                         <ul className="list-disc list-inside text-gray-700">
-                          {op.participants.length > 0 ? op.participants.map((p:any, i:number) => <li key={i}>{p}</li>) : <li>No signups yet</li>}
+                          {op.participants.length > 0 ? op.participants.map((p: any, i: number) => <li key={i}>{p}</li>) : <li>No signups yet</li>}
                         </ul>
                       </div>
                     ))}
