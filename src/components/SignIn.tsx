@@ -3,12 +3,12 @@ import { Heart } from "lucide-react"
 import { Link, useNavigate } from "react-router-dom"
 
 function Signin() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [showAdminModal, setShowAdminModal] = useState(false)
-  const [selectedCenter, setSelectedCenter] = useState("")
-  const [adminPassword, setAdminPassword] = useState("")
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [selectedCenter, setSelectedCenter] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,7 +27,7 @@ function Signin() {
     } catch (error) {
       alert("Error connecting to server")
     }
-  }
+  };
 
   const handleAdminLogin = () => {
     if (selectedCenter === "Alcosta Senior Center" && adminPassword === "a3344156") {
@@ -36,7 +36,7 @@ function Signin() {
     } else {
       alert("Invalid admin credentials")
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FFFFFF]">
@@ -149,7 +149,7 @@ function Signin() {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default Signin;
