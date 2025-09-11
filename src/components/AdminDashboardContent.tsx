@@ -14,7 +14,7 @@ function AdminDashboardContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (slots < 2 || slots > 5) {
+    if (Number(slots) < 2 || Number(slots) > 5) {
       alert("Number of participants must be between 2 and 5")
       return
     }
