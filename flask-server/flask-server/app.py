@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import bcrypt
 from bson.objectid import ObjectId
 
+
 baseDirectory = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(baseDirectory, ".env"))
 
@@ -16,6 +17,30 @@ client = MongoClient(os.getenv("DBKEY"))
 db = client["SWS"]
 users = db["credentials"]
 opportunities = db["opportunities"]
+
+from urllib.parse import urlparse
+
+@app.route("/health")
+def health_check():
+    db_uri = os.getenv("DBKEY")
+    if not db_uri:
+        return {"status": "error", "message": "DBKEY not found in environment"}, 500
+
+    parsed = urlparse(db_uri)
+    safe_uri = f"{parsed.scheme}://{parsed.hostname}/{parsed.path.lstrip('/')}"
+    
+    return {
+        "status": "ok",
+        "db_uri": safe_uri,
+        "connected": test_db_connection()
+    }, 200
+
+def test_db_connection():
+    try:
+        client.server_info() 
+        return True
+    except Exception as e:
+        return str(e)
 
 @app.route("/")
 def home():
