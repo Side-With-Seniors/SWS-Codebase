@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 import bcrypt
 from bson.objectid import ObjectId
 
-load_dotenv()
+baseDirectory = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(baseDirectory, ".env"))
 
 app = Flask(__name__)
 CORS(app)
